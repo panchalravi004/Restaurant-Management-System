@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Models\SubCategory;
+use Exception;
 use Illuminate\Http\Request;
 
 class ManageProductController extends Controller
@@ -12,9 +13,9 @@ class ManageProductController extends Controller
     {
         $search = $request['search'] ?? '';
         if ($search != '') {
-            $product = Product::with('getSubCategory')->where('name','LIKE',"%$search%")->get();
+            $product = Product::with('getSubCategory')->where('name','LIKE',"%$search%")->paginate(10);
         }else{
-            $product = Product::with('getSubCategory')->get();
+            $product = Product::with('getSubCategory')->paginate(10);
         }
         $subcategory = SubCategory::all();
         // return $product;
@@ -69,8 +70,12 @@ class ManageProductController extends Controller
 
     public function delete($id)
     {
-        $product = Product::find($id);
-        $product->delete();
-        return redirect()->back();
+        try {
+            $product = Product::find($id);
+            $product->delete();
+            return redirect()->back();
+        } catch (Exception $th) {
+            return redirect()->back()->withError('Content used some where !');
+        }
     }
 }

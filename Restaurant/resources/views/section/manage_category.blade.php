@@ -15,6 +15,15 @@
 <div class="row justify-content-center align-items-center g-2 p-2">
     <div class="col-5 text-secondary">Main Category</div>
     <div class="col-7 text-secondary">Sub Category</div>
+    @if (Session::has('error'))
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                <span class="sr-only">Close</span>
+            </button>
+            {{Session::get('error')}}
+        </div>
+    @endif
 </div>
 <div class="row justify-content-center align-items-start g-2 p-2 ">
     <div class="col-5">

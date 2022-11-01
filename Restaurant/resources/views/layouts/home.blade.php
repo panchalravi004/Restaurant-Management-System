@@ -72,7 +72,7 @@
             </div>
           </div>
           <!-- Content Model goes here -->
-          <div class="col-md-10 col-sm-12 bg-white h-100 p-0">
+          <div class="col-md-10 col-sm-12 bg-white h-100 p-0" style="overflow: hidden;overflow-y: scroll;overscroll-behavior-y: smooth;scrollbar-width: none; ">
             <div class="container-fluid bg-dark p-3">
               <div class="row justify-content-center align-items-center g-2">
                 <div class="col-10">
@@ -84,7 +84,7 @@
               </div>
             </div>
             <!-- Tab with different content -->
-            <div class="container-fluid" id="content-section">
+            <div class="container-fluid" id="content-section" >
               @yield('content')
             </div>
           </div>

@@ -30,6 +30,15 @@
 </div>
 
 <!-- Product detail table -->
+@if (Session::has('error'))
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        <span class="sr-only">Close</span>
+    </button>
+    {{Session::get('error')}}
+</div>
+@endif
 <div class="table-responsive">
     <table class="table table-hover">
         <thead>
@@ -80,7 +89,9 @@
         </tbody>
     </table>
 </div>
-
+<div class="row justify-content-center align-items-center g-2">
+    {{$product->links("pagination::bootstrap-4")}}
+</div>
 
 <!--Add New Product Modal Modal -->
 <div class="modal fade" id="add-new-product" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
@@ -123,8 +134,7 @@
                 <div class="form-group">
                   <label for="">Product Status</label>
                   <select class="custom-select" name="status" id="">
-                    <option selected>Select one</option>
-                    <option value="1">Active</option>
+                    <option value="1" selected>Active</option>
                     <option value="0">Inactive</option>
                   </select>
                 </div>

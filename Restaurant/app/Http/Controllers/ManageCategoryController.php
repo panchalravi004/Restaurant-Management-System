@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\MainCategory;
 use App\Models\SubCategory;
+use Exception;
 use Illuminate\Http\Request;
 
 class ManageCategoryController extends Controller
@@ -67,14 +68,23 @@ class ManageCategoryController extends Controller
     public function deleteCategory($category,$id)
     {
         if($category == "MAIN"){
-            $cat = MainCategory::find($id);
-            $cat->delete();
-            return redirect()->back();
+            try {
+                $cat = MainCategory::find($id);
+                $cat->delete();
+                return redirect()->back();
+            } catch (Exception $th) {
+                return redirect()->back()->withError('Content used some where !');
+            }
+            
         }
         elseif($category == "SUB"){
-            $cat = SubCategory::find($id);
-            $cat->delete();
-            return redirect()->back();
+            try {
+                $cat = SubCategory::find($id);
+                $cat->delete();
+                return redirect()->back();
+            } catch (Exception $th) {
+                return redirect()->back()->withError('Content used some where !');
+            }
         }else{
             return redirect()->back();
         }

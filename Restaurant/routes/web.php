@@ -27,6 +27,10 @@ Route::group(['prefix'=>'/'],function(){
 });
 Route::group(['prefix'=>'tables'],function(){
     Route::get('/',[ManageTableController::class,'index'])->name('manage_tables');
+    Route::post('/create',[ManageTableController::class,'create'])->name('create_tables');
+    Route::get('/delete/{id}',[ManageTableController::class,'delete'])->name('delete_tables');
+    Route::get('/add-item/{table_id}',[ManageTableController::class,'addItem'])->name('add_item_in_tables');
+    Route::get('/remove-item/{id}',[ManageTableController::class,'removeItem'])->name('remove_item_in_tables');
 });
 
 Route::group(['prefix'=>'product'],function(){
