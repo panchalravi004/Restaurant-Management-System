@@ -1,6 +1,7 @@
 @extends('layouts.home')
 @push('title')
-    Wellcome, Ravi Panchal
+    Wellcome, {{ucwords(Auth::user()->name)}}
+    {{-- Wellcome, {{Auth::user()}} --}}
 @endpush
 @section('content')
     

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ManageCategoryController;
 use App\Http\Controllers\ManageProductController;
@@ -20,6 +21,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix'=>'/'],function(){
     Route::get('/',[DashboardController::class,'index'])->name('dashboard');
+    Route::get('/login',[AuthController::class,'index'])->name('login');
+    Route::post('/dologin',[AuthController::class,'login'])->name('do_login');
+    Route::get('/logout',[AuthController::class,'logout'])->name('logout');
 });
 Route::group(['prefix'=>'tables'],function(){
     Route::get('/',[ManageTableController::class,'index'])->name('manage_tables');

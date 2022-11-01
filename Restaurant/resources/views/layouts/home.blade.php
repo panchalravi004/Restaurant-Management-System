@@ -42,20 +42,28 @@
             <div class="container-fluid" >
               <div class="row">
                 <a href=" {{ route('dashboard') }} " class="container d-flex justify-content-left align-items-center text-white-50 mt-2 mb-2 p-3 pl-4" id="btn-dashboard">                  
-                    Dashboard
+                  Dashboard
                 </a>
-                <a href=" {{ route('manage_tables') }} " class="container d-flex justify-content-left align-items-center text-white-50 mt-2 mb-2 p-3 pl-4" id="btn-managetables">                  
-                    Manage Tables
-                </a>
-                <a href=" {{ route('manage_product') }} " class="container d-flex justify-content-left align-items-center text-white-50 mt-2 mb-2 p-3 pl-4" id="btn-manageproduct">                  
-                    Manage Product
-                </a>
-                <a href=" {{ route('manage_category') }} " class="container d-flex justify-content-left align-items-center text-white-50 mt-2 mb-2 p-3 pl-4" id="btn-managecategory">                  
-                    Manage Category
-                </a>
-                <a href=" {{ route('manage_user') }} " class="container d-flex justify-content-left align-items-center text-white-50 mt-2 mb-2 p-3 pl-4" id="btn-manageuser">                  
-                    Manage User
-                </a>
+                @if (Auth::user()->can_manage_table)
+                  <a href=" {{ route('manage_tables') }} " class="container d-flex justify-content-left align-items-center text-white-50 mt-2 mb-2 p-3 pl-4" id="btn-managetables">                  
+                      Manage Tables
+                  </a>
+                @endif
+                @if (Auth::user()->can_manage_product)
+                  <a href=" {{ route('manage_product') }} " class="container d-flex justify-content-left align-items-center text-white-50 mt-2 mb-2 p-3 pl-4" id="btn-manageproduct">                  
+                      Manage Product
+                  </a>
+                @endif
+                @if (Auth::user()->can_manage_category)
+                  <a href=" {{ route('manage_category') }} " class="container d-flex justify-content-left align-items-center text-white-50 mt-2 mb-2 p-3 pl-4" id="btn-managecategory">                  
+                      Manage Category
+                  </a>
+                @endif
+                @if (Auth::user()->can_manage_user)
+                  <a href=" {{ route('manage_user') }} " class="container d-flex justify-content-left align-items-center text-white-50 mt-2 mb-2 p-3 pl-4" id="btn-manageuser">                  
+                      Manage User
+                  </a>
+                @endif
                 <a href="" class="container d-flex justify-content-left align-items-center text-white-50 mt-2 mb-2 p-3 pl-4" id="btn-orderhistory">                  
                     Order History
                 </a>
@@ -70,7 +78,7 @@
                   <h6 class="display-6 text-white-50" id="content-section-title">@stack('title')</h6>
                 </div>
                 <div class="col-2">
-                  <button type="button" class="btn btn-danger btn-sm">Logout</button>
+                  <a href="{{ route('logout') }}" type="button" class="btn btn-danger btn-sm">Logout</a>
                 </div>
               </div>
             </div>

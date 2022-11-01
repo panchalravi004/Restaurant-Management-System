@@ -11,21 +11,40 @@
   </head>
   <body>
     <div class="d-flex justify-content-center align-item-center p-4 mt-5">
-      <form method="get" action="" class="container bg-light col-4  rounded shadow-sm">
+      <form method="post" action="{{ route('do_login') }}" class="container bg-light col-4  rounded shadow-sm">
+        @if (Session::has('error'))
+          <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{Session::get('error')}}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        @endif
+        @csrf
         <div class="container d-flex justify-content-center align-item-center ">
           <h2 class="display-6">LOGIN</h2>
         </div>
         <div class="form-group">
-          <label for="username">Username</label>
-          <input id="username" class="form-control" type="text" name="Enter your username">
+          <label for="email">Email</label>
+          <input id="email" class="form-control" type="text" name="email" placeholder="Enter your email">
+          <span class="text-danger">
+              @error('email')
+                  {{$message}}
+              @enderror
+          </span>
         </div>
         <div class="form-group">
           <label for="password">Password</label>
-          <input id="password" class="form-control" type="text" name="Enter your password">
+          <input id="password" class="form-control" type="text" name="password" placeholder="Enter your password">
+          <span class="text-danger">
+              @error('password')
+                  {{$message}}
+              @enderror
+          </span>
         </div>
         
         <div class="form-group d-flex justify-content-center">
-          <button type="button" class="btn btn-success">Login</button>
+          <button type="submit" class="btn btn-success">Login</button>
         </div>
       </form>
     </div>
