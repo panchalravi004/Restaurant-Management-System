@@ -35,6 +35,11 @@ Route::group(['prefix'=>'product'],function(){
 
 Route::group(['prefix'=>'category'],function(){
     Route::get('/',[ManageCategoryController::class,'index'])->name('manage_category');
+    Route::post('/maincategory/add',[ManageCategoryController::class,'addMainCategory'])->name('add_main_category');
+    Route::post('/subcategory/add',[ManageCategoryController::class,'addSubCategory'])->name('add_sub_category');
+    Route::post('/maincategory/edit/{id}',[ManageCategoryController::class,'editMainCategory'])->name('edit_main_category');
+    Route::post('/subcategory/edit/{id}',[ManageCategoryController::class,'editSubCategory'])->name('edit_sub_category');
+    Route::get('/delete/{category}/{id}',[ManageCategoryController::class,'deleteCategory'])->name('delete_category');
 });
 
 Route::group(['prefix'=>'user'],function(){
