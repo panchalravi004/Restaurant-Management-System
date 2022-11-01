@@ -31,6 +31,9 @@ Route::group(['prefix'=>'tables'],function(){
 
 Route::group(['prefix'=>'product'],function(){
     Route::get('/',[ManageProductController::class,'index'])->name('manage_product');
+    Route::post('/create',[ManageProductController::class,'create'])->name('create_product');
+    Route::get('/delete/{id}',[ManageProductController::class,'delete'])->name('delete_product');
+    Route::post('/edit/{id}',[ManageProductController::class,'edit'])->name('edit_product');
 });
 
 Route::group(['prefix'=>'category'],function(){

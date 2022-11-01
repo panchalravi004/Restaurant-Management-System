@@ -12,6 +12,7 @@
   <body>
     <div class="d-flex justify-content-center align-item-center p-4 mt-5">
       <form method="post" action="{{ route('do_login') }}" class="container bg-light col-4  rounded shadow-sm">
+        @csrf
         @if (Session::has('error'))
           <div class="alert alert-warning alert-dismissible fade show" role="alert">
             {{Session::get('error')}}
@@ -20,7 +21,6 @@
             </button>
           </div>
         @endif
-        @csrf
         <div class="container d-flex justify-content-center align-item-center ">
           <h2 class="display-6">LOGIN</h2>
         </div>

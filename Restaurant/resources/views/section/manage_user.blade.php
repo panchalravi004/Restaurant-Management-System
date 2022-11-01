@@ -32,7 +32,7 @@
                 <th scope="col">No</th>
                 <th scope="col">User Name</th>
                 <th scope="col">Email</th>
-                <th scope="col">Memeber</th>
+                <th scope="col">Member</th>
                 <th scope="col">Edit</th>
                 <th scope="col">Delete</th>
             </tr>
@@ -122,7 +122,7 @@
                     <div class="col-5 form-check m-2">
                         <label class="form-check-label">
                           <input type="checkbox" class="form-check-input" name="is_member" id="" value="1">
-                          Is Memeber
+                          Is Member
                         </label>
                     </div>
                 </div>
@@ -188,7 +188,7 @@
                     <div class="col-5 form-check m-2">
                         <label class="form-check-label">
                         <input type="checkbox" class="form-check-input" @if ($u->is_member) checked @else @endif name="is_member" id="" value="1">
-                        Is Memeber
+                        Is Member
                         </label>
                     </div>
                 </div>
