@@ -39,5 +39,8 @@ Route::group(['prefix'=>'category'],function(){
 
 Route::group(['prefix'=>'user'],function(){
     Route::get('/',[ManageUserController::class,'index'])->name('manage_user');
+    Route::post('/create',[ManageUserController::class,'create'])->name('create_user');
+    Route::get('/delete/{id}',[ManageUserController::class,'delete'])->name('delete_user');
+    Route::post('/edit/{id}',[ManageUserController::class,'edit'])->name('edit_user');
 });
 
