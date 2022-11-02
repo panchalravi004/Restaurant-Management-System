@@ -21,6 +21,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'can_manage_table',
+        'can_manage_product',
+        'can_manage_category',
+        'can_manage_user',
+        'is_member'
     ];
 
     /**
@@ -29,7 +34,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
-        'password',
+        // 'password',
         'remember_token',
     ];
 

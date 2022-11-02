@@ -21,7 +21,7 @@
             $items = getTableItems($t->id)->getItems;
         @endphp
         <div class="card m-3 ml-4 mr-4 shadow-sm" id="table-card">
-            <div class="card-header bg-success text-white">
+            <div class="card-header @if ($items->count()>0) bg-success @else bg-danger @endif text-white">
                 TABLE {{$t->name}}
             </div>
             <div class="card-body" data-toggle="modal" data-target="#detail-table-modal-{{$t->id}}" style="cursor: pointer;">
@@ -110,7 +110,7 @@
                             <div class="form-group">
                                 <label for="">Select Item</label>
                                 <select class="custom-select" name="product-id" id="">
-                                    <option selected>Select one</option>
+                                    <option value="" selected>Select one</option>
                                     @foreach ($product as $p)
                                         <option value="{{$p->id}}">{{$p->name}}</option>
                                     @endforeach

@@ -29,6 +29,10 @@ class ManageTableController extends Controller
 
     public function addItem(Request $request,$table_id)
     {
+        $request->validate([
+            'product-id'=>'required',
+            'quantity'=>'required',
+        ]);
         $createorder = new TableOrder();
         $createorder->product_id = $request['product-id'];
         $createorder->quantity = $request['quantity'];

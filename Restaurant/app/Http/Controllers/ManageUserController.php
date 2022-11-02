@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Users\UserProfileRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -32,7 +33,7 @@ class ManageUserController extends Controller
         $user = new User();
         $user->name = $request['name'];
         $user->email = $request['email'];
-        $user->password = Hash::make($request['password']);
+        $user->password = bcrypt($request['password']);
         
         if(isset($request['can_manage_table'])){
             $user->can_manage_table = 1;
@@ -66,43 +67,58 @@ class ManageUserController extends Controller
     {
         $user = User::find($id);
 
-        $user->name = $request['name'];
-        $user->email = $request['email'];
-
         if(isset($request['password'])){
-            $user->password = Hash::make($request['password']);
+            $password = Hash::make($request['password']);
+        }else{
+            $password = $user->password;
         }
+
         if(isset($request['can_manage_table'])){
-            $user->can_manage_table = 1;
+            $can_manage_table = 1;
         }
         else{
-            $user->can_manage_table = 0;
+            $can_manage_table = 0;
         }
+
         if(isset($request['can_manage_product'])){
-            $user->can_manage_product = 1;
+            $can_manage_product = 1;
         }
         else{
-            $user->can_manage_product = 0;
+            $can_manage_product = 0;
         }
+        
         if(isset($request['can_manage_user'])){
-            $user->can_manage_user = 1;
+            $can_manage_user = 1;
         }
         else{
-            $user->can_manage_user = 0;
+            $can_manage_user = 0;
         }
+
         if(isset($request['can_manage_category'])){
-            $user->can_manage_category = 1;
+            $can_manage_category = 1;
         }
         else{
-            $user->can_manage_category = 0;
+            $can_manage_category = 0;
         }
+
         if(isset($request['is_member'])){
-            $user->is_member = 1;
+            $is_member = 1;
         }
         else{
-            $user->is_member = 0;
+            $is_member = 0;
         }
-        $user->save();
+
+        $user->update([
+            'name'=> $request['name'],
+            'email'=> $request['email'],
+            'password'=> $password,
+            'can_manage_table'=> $can_manage_table,
+            'can_manage_product'=> $can_manage_product,
+            'can_manage_user'=> $can_manage_user,
+            'can_manage_category'=> $can_manage_category,
+            'is_member'=> $is_member
+        ]);
+
         return redirect()->back();
     }
 }

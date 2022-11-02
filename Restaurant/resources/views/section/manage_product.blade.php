@@ -117,7 +117,7 @@
                 <div class="form-group">
                   <label for="">Product Category</label>
                   <select class="custom-select" name="sub-category-id" id="">
-                    <option selected>Select one</option>
+                    <option value="" selected>Select one</option>
                     @foreach ($subcategory as $cat)
                         <option value="{{$cat->id}}">{{$cat->name}}</option>
                     @endforeach
