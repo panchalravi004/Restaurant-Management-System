@@ -6,6 +6,7 @@ use App\Http\Controllers\ManageCategoryController;
 use App\Http\Controllers\ManageProductController;
 use App\Http\Controllers\ManageTableController;
 use App\Http\Controllers\ManageUserController;
+use App\Http\Controllers\OrderHistoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,6 +32,7 @@ Route::group(['prefix'=>'tables'],function(){
     Route::get('/delete/{id}',[ManageTableController::class,'delete'])->name('delete_tables');
     Route::get('/add-item/{table_id}',[ManageTableController::class,'addItem'])->name('add_item_in_tables');
     Route::get('/remove-item/{id}',[ManageTableController::class,'removeItem'])->name('remove_item_in_tables');
+    Route::get('/close-table/{id}',[ManageTableController::class,'closeTable'])->name('close_table');
 });
 
 Route::group(['prefix'=>'product'],function(){
@@ -54,5 +56,9 @@ Route::group(['prefix'=>'user'],function(){
     Route::post('/create',[ManageUserController::class,'create'])->name('create_user');
     Route::get('/delete/{id}',[ManageUserController::class,'delete'])->name('delete_user');
     Route::post('/edit/{id}',[ManageUserController::class,'edit'])->name('edit_user');
+});
+
+Route::prefix('order-history')->group(function () {
+    Route::get('/',[OrderHistoryController::class,'index'])->name('order_history');
 });
 

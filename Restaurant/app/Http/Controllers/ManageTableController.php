@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\OrderHistory;
 use App\Models\Product;
 use App\Models\Table;
 use App\Models\TableOrder;
@@ -55,6 +56,29 @@ class ManageTableController extends Controller
     {
         $table = Table::find($id);
         $table->delete();
+        return redirect()->back();
+    }
+
+    public function closeTable(Request $request,$id)
+    {
+        $items = getTableItems($id)->getItems;
+        $total = getTableTotal($items);
+        $table = Table::find($id);
+
+        $createHistory = new OrderHistory();
+        $createHistory->amount=$total;
+        $createHistory->table_name="TABLE_".$table->name;
+        if (isset($request['is_parcel'])) {
+            $createHistory->is_parcel=1;
+        }
+        $createHistory->save();
+
+        //remove items from the table
+        foreach ($items as $item) {
+            $findOrder = TableOrder::find($item->id);
+            $findOrder->delete();
+        }
+
         return redirect()->back();
     }
 }

@@ -31,14 +31,14 @@ class AuthController extends Controller
             'password'=>'required',
         ]);
         //To Create a user
-        // $user = new User();
-        // $user->name = "Ravi Panchal";
-        // $user->email = $request['email'];
-        // $user->can_manage_user = 1;
-        // $user->password = bcrypt($request['password']);
+        $user = new User();
+        $user->name = "Ravi Panchal";
+        $user->email = $request['email'];
+        $user->can_manage_user = 1;
+        $user->password = bcrypt($request['password']);
         // $user->password = Hash::make($request['password']);
         // $user->password = Crypt::encrypt($request['password']);;
-        // $user->save();
+        $user->save();
 
         if(Auth::attempt($cred,true)){
             return redirect()->route('dashboard');

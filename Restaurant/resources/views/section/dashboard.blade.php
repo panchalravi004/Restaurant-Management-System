@@ -7,98 +7,138 @@
     
 <div class="row justify-content-end align-items-center g-2 p-3 bg-light border-bottom">
   <div class="col-2">
-    <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#modelId">Create Order</button>
+    {{-- <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#modelId">Create Order</button> --}}
   </div>
 </div>
+@php
+    $data = getStatistics();
+@endphp
 
 <div class="row justify-content-around align-items-center g-2 p-3 bg-white border-bottom">
     <div class="card shadow-sm m-2 ">
-      <div class="card-header bg-success text-white">
+      <div class="card-header bg-success text-white rounded-bottom shadow-sm">
         Today's Revenue
       </div>
       <div class="card-body">
-        <p class="card-text">Rs. 2000</p>
+        <p class="card-text text-center">Rs. {{$data['todayRevenue']}}</p>
       </div>
     </div>
     <div class="card shadow-sm m-2 ">
-      <div class="card-header bg-success text-white">
+      <div class="card-header bg-info text-white rounded-bottom shadow-sm">
         Today's Order
       </div>
       <div class="card-body">
-        <p class="card-text">Rs. 2000</p>
+        <p class="card-text text-center">{{$data['todayOrder']->count()}}</p>
       </div>
     </div>
     <div class="card shadow-sm m-2 ">
-      <div class="card-header bg-success text-white">
+      <div class="card-header bg-warning text-white rounded-bottom shadow-sm">
         Today's Parcel
       </div>
       <div class="card-body">
-        <p class="card-text">Rs. 2000</p>
+        <p class="card-text text-center">{{$data['todayParcel']->count()}}</p>
       </div>
     </div>
     <div class="card shadow-sm m-2 ">
-      <div class="card-header bg-success text-white">
+      <div class="card-header bg-danger text-white rounded-bottom shadow-sm">
         Monthly Revenue
       </div>
       <div class="card-body">
-        <p class="card-text">Rs. 2000</p>
+        <p class="card-text text-center">Rs. {{$data['monthRevenue']}}</p>
+      </div>
+    </div>
+    <div class="card shadow-sm m-2 ">
+      <div class="card-header bg-success text-white rounded-bottom shadow-sm">
+        Monthly Order
+      </div>
+      <div class="card-body">
+        <p class="card-text text-center">{{$data['monthOrder']->count()}}</p>
       </div>
     </div>
 </div>
-<div class="row justify-content-around align-items-center g-2 bg-secondary">
-
-</div>
-
-
-<!-- Modal -->
-<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Create Order</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-      </div>
-      <div class="modal-header">
-        <form action="">
-          <div class="row justify-content-around align-items-center g-2">
-            <div class="form-group">
-              <label for="">Select Item</label>
-              <input type="text" name="" id="" class="form-control" placeholder="" aria-describedby="helpId">
-            </div>
-            <div class="form-group col-3">
-              <label for="">Qty</label>
-              <input type="text" name="" id="" class="form-control" placeholder="" aria-describedby="helpId">
-            </div>
-            <button type="button" class="btn btn-primary mt-3 ">ADD</button>
-          </div>
-        </form>
-      </div>
-      <div class="modal-body">
-        <div class="row justify-content-center align-items-center g-2">
-          <div class="col-1 ">1</div>
-          <div class="col ">Item Name </div>
-          <div class="col-2 ">Qty</div>
-          <div class="col-2 ">Amt</div>
-          <div class="col-2 d-flex justify-content-center align-items-center ">
-              <span class="badge badge-danger">&times;</span>
-          </div>
-      </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Print</button>
-        <h5>Rs. 12000</h5>
-      </div>
-    </div>
+<div class="row justify-content-around align-items-center g-2 bg-white">
+  <div class="col-6">
+    <canvas id="monthlyRevenueDataChart">
+  
+    </canvas>
   </div>
+  <div class="col-6">
+    <canvas id="dailyOrderDataChart">
+  
+    </canvas>
+  </div>
+
 </div>
 
 @endsection
 
 @section('script')
   <script>
+
+//for monthly Revenue Data Chart
+
+    $(function () {
+    var data = <?php echo json_encode($monthlyRevenueData);?>;
+    var barCanvas = $('#monthlyRevenueDataChart');
+    var barChart = new Chart(barCanvas,{
+      type:'bar',
+      data:{
+        labels:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sept','Oct','Nov','Dec'],
+        datasets:[
+          {
+            label:'Monthly Revenue Growth, 2022',
+            data:data,
+            backgroundColor:['blue','red','orange','green']
+          }
+        ]
+      },
+      options:{
+        scales:{
+          yAxes:[{
+            ticks:{
+              beginAtZero:true
+            }
+          }]
+        }
+      }
+    });
+    });
+
+//for daily Order Data Chart display
+    $(function () {
+
+      var days = [];
+      for (let i = 0; i < 31; i++) {
+        days[i]=i + 1;
+      }
+
+      var data = <?php echo json_encode($dailyOrderData);?>;
+      var barCanvas = $('#dailyOrderDataChart');
+      var barChart = new Chart(barCanvas,{
+        type:'line',
+        data:{
+          labels:days,
+          datasets:[
+            {
+              label:'Dail Order Growth, 2022',
+              data:data,
+              backgroundColor:['blue','red','orange','green']
+            }
+          ]
+        },
+        options:{
+          scales:{
+            yAxes:[{
+              ticks:{
+                beginAtZero:true
+              }
+            }]
+          }
+        }
+      });
+     });
+
+    //  Initial script
     $(document).ready(function () {
       $("#btn-dashboard").addClass("bg-danger");
       $("#btn-dashboard").removeClass("text-white-50");

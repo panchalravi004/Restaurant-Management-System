@@ -21,8 +21,8 @@
             $items = getTableItems($t->id)->getItems;
         @endphp
         <div class="card m-3 ml-4 mr-4 shadow-sm" id="table-card">
-            <div class="card-header @if ($items->count()>0) bg-success @else bg-danger @endif text-white">
-                TABLE {{$t->name}}
+            <div class="card-header @if ($items->count()>0) bg-success @else bg-danger @endif text-white rounded-bottom shadow-sm">
+                Table {{$t->name}}
             </div>
             <div class="card-body" data-toggle="modal" data-target="#detail-table-modal-{{$t->id}}" style="cursor: pointer;">
                 <p class="card-text flex-wrap">Rs. {{getTableTotal($items)}}</p>
@@ -141,13 +141,19 @@
                         </div>
                     @endforeach
                 </div>
-                <div class="modal-footer">
+                <form class="modal-footer justify-content-between" action="{{ route('close_table', ['id'=>$t->id]) }}" method="get">
+                    <h5 class="mt-2">Rs. {{getTableTotal($items)}}</h5>
                     @if ($items->count()>0)
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Print</button>
+                        <div class="form-check">
+                            <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" name="is_parcel" id="" value="checkedValue">
+                            Is Parcel
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-success text-white">Close Table</button>
+                        {{-- <button type="button" class="btn btn-primary">Print</button> --}}
                     @endif
-                    <h5>Rs. {{getTableTotal($items)}}</h5>
-                </div>
+                </form>
             </div>
         </div>
     </div>
