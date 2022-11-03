@@ -11,6 +11,11 @@ class ManageProductController extends Controller
 {
     public function index(Request $request)
     {
+
+        if($request->ajax()){
+            return $this->filterData($request);
+        }
+
         $search = $request['search'] ?? '';
         if ($search != '') {
             $product = Product::with('getSubCategory')->where('name','LIKE',"%$search%")->paginate(10);
@@ -77,5 +82,30 @@ class ManageProductController extends Controller
         } catch (Exception $th) {
             return redirect()->back()->withError('Content used some where !');
         }
+    }
+    
+
+    public function filterData(Request $request)
+    {
+        if(isset($request['filter'])){
+            if($request['filter']=="ACTIVE"){
+                $product = Product::with('getSubCategory')->where('status','=',1)->paginate(0);
+            }
+            elseif($request['filter']=="INACTIVE"){
+                $product = Product::with('getSubCategory')->where('status','=',0)->paginate(0);
+            }
+            else{
+                $product = Product::with('getSubCategory')->paginate(10);
+            }
+        }
+        else{
+            $product = Product::with('getSubCategory')->paginate(10);
+        }
+        $subcategory = SubCategory::all();
+        $data = compact('product','subcategory');
+        $html = view('ajax/filter_manage_product',)->with($data)->render();
+        
+        return response()->json(compact('html'));
+
     }
 }

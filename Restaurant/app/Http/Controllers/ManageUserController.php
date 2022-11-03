@@ -11,6 +11,10 @@ class ManageUserController extends Controller
 {
     public function index(Request $request)
     {
+        if($request->ajax()){
+            return $this->filterData($request);
+        }
+
         $search = $request['search'] ?? "";
         if ($search != "") {
             $user = User::where('name','LIKE',"%$search%")->get();
@@ -120,5 +124,26 @@ class ManageUserController extends Controller
         ]);
 
         return redirect()->back();
+    }
+
+    public function filterData(Request $request)
+    {
+        if(isset($request['filter'])){
+            if($request['filter']=="YES"){
+                $user = User::where('is_member','=',1)->get();
+            }
+            else{
+                $user = User::all();
+            }
+        }
+        else{
+            $user = User::all();
+        }
+        $data = compact('user');
+        $html = view('ajax/filter_manage_user',)->with($data)->render();
+        
+        return response()->json(compact('html'));
+        // return $user;
+
     }
 }

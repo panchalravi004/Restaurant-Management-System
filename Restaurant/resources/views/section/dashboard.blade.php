@@ -15,40 +15,40 @@
 @endphp
 
 <div class="row justify-content-around align-items-center g-2 p-3 bg-white border-bottom">
-    <div class="card shadow-sm m-2 ">
-      <div class="card-header bg-success text-white rounded-bottom shadow-sm">
+    <div class="card shadow-sm m-2 border-0">
+      <div class="card-header bg-success text-white rounded-bottom shadow-sm border-0">
         Today's Revenue
       </div>
       <div class="card-body">
         <p class="card-text text-center">Rs. {{$data['todayRevenue']}}</p>
       </div>
     </div>
-    <div class="card shadow-sm m-2 ">
-      <div class="card-header bg-info text-white rounded-bottom shadow-sm">
+    <div class="card shadow-sm m-2 border-0">
+      <div class="card-header bg-info text-white rounded-bottom shadow-sm border-0">
         Today's Order
       </div>
       <div class="card-body">
         <p class="card-text text-center">{{$data['todayOrder']->count()}}</p>
       </div>
     </div>
-    <div class="card shadow-sm m-2 ">
-      <div class="card-header bg-warning text-white rounded-bottom shadow-sm">
+    <div class="card shadow-sm m-2 border-0">
+      <div class="card-header bg-warning text-white rounded-bottom shadow-sm border-0">
         Today's Parcel
       </div>
       <div class="card-body">
         <p class="card-text text-center">{{$data['todayParcel']->count()}}</p>
       </div>
     </div>
-    <div class="card shadow-sm m-2 ">
-      <div class="card-header bg-danger text-white rounded-bottom shadow-sm">
+    <div class="card shadow-sm m-2 border-0">
+      <div class="card-header bg-danger text-white rounded-bottom shadow-sm border-0">
         Monthly Revenue
       </div>
       <div class="card-body">
         <p class="card-text text-center">Rs. {{$data['monthRevenue']}}</p>
       </div>
     </div>
-    <div class="card shadow-sm m-2 ">
-      <div class="card-header bg-success text-white rounded-bottom shadow-sm">
+    <div class="card shadow-sm m-2 border-0">
+      <div class="card-header bg-success text-white rounded-bottom shadow-sm border-0">
         Monthly Order
       </div>
       <div class="card-body">
@@ -56,7 +56,7 @@
       </div>
     </div>
 </div>
-<div class="row justify-content-around align-items-center g-2 bg-white">
+<div class="row justify-content-around align-items-center g-2 bg-white p-3">
   <div class="col-6">
     <canvas id="monthlyRevenueDataChart">
   
@@ -70,14 +70,8 @@
 
 </div>
 
-@endsection
-
-@section('script')
-  <script>
-
-//for monthly Revenue Data Chart
-
-    $(function () {
+<script>
+  $(function () {
     var data = <?php echo json_encode($monthlyRevenueData);?>;
     var barCanvas = $('#monthlyRevenueDataChart');
     var barChart = new Chart(barCanvas,{
@@ -120,7 +114,7 @@
           labels:days,
           datasets:[
             {
-              label:'Dail Order Growth, 2022',
+              label:'Daily Order Growth, 2022',
               data:data,
               backgroundColor:['blue','red','orange','green']
             }
@@ -137,27 +131,10 @@
         }
       });
      });
+</script>
 
-    //  Initial script
-    $(document).ready(function () {
-      $("#btn-dashboard").addClass("bg-danger");
-      $("#btn-dashboard").removeClass("text-white-50");
-      $("#btn-dashboard").addClass("text-white");
-      var classList = [
-          // "#btn-dashboard",
-          "#btn-managetables",
-          "#btn-manageproduct",
-          "#btn-managecategory",
-          "#btn-manageuser",
-          "#btn-orderhistory"];
-      for (let i = 0; i < classList.length; i++) {
-          if(classList[i]==currentElement){
-              continue;
-          }
-          $(classList[i]).removeClass("bg-danger");
-          $(classList[i]).removeClass("text-white");
-          $(classList[i]).addClass("text-white-50");
-      }
-    });
-  </script>
+@endsection
+
+@section('script')
+  var currentElement = "#btn-dashboard";
 @endsection

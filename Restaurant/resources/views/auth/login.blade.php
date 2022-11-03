@@ -9,9 +9,13 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   </head>
-  <body>
-    <div class="d-flex justify-content-center align-item-center p-4 mt-5">
-      <form method="post" action="{{ route('do_login') }}" class="container bg-light col-4  rounded shadow-sm">
+  <body class="bg-dark">
+
+    <div class="container bg-dark" style="margin: 120px auto;">
+      <div class="container d-flex justify-content-center align-item-center ">
+        <h2 class="display-6 text-white">LOGIN</h2>
+      </div>
+      <form method="post" action="{{ route('do_login') }}" class="container bg-white col-4 p-4 rounded shadow-sm">
         @csrf
         @if (Session::has('error'))
           <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -21,9 +25,7 @@
             </button>
           </div>
         @endif
-        <div class="container d-flex justify-content-center align-item-center ">
-          <h2 class="display-6">LOGIN</h2>
-        </div>
+        
         <div class="form-group">
           <label for="email">Email</label>
           <input id="email" class="form-control" type="text" name="email" placeholder="Enter your email">
@@ -35,7 +37,7 @@
         </div>
         <div class="form-group">
           <label for="password">Password</label>
-          <input id="password" class="form-control" type="text" name="password" placeholder="Enter your password">
+          <input id="password" class="form-control" type="password" name="password" placeholder="Enter your password">
           <span class="text-danger">
               @error('password')
                   {{$message}}

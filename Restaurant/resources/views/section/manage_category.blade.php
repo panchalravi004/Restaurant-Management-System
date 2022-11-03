@@ -217,26 +217,5 @@
 @endforeach
 @endsection
 @section('script')
-  <script>
-    $(document).ready(function () {
-      $("#btn-managecategory").addClass("bg-danger");
-      $("#btn-managecategory").removeClass("text-white-50");
-      $("#btn-managecategory").addClass("text-white");
-      var classList = [
-          "#btn-dashboard",
-          "#btn-managetables",
-          "#btn-manageproduct",
-        //   "#btn-managecategory",
-          "#btn-manageuser",
-          "#btn-orderhistory"];
-      for (let i = 0; i < classList.length; i++) {
-          if(classList[i]==currentElement){
-              continue;
-          }
-          $(classList[i]).removeClass("bg-danger");
-          $(classList[i]).removeClass("text-white");
-          $(classList[i]).addClass("text-white-50");
-      }
-    });
-  </script>
+    var currentElement = "#btn-managecategory";
 @endsection
