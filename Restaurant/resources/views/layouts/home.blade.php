@@ -43,30 +43,30 @@
             <!-- menu items -->
             <div class="container-fluid" >
               <div class="row">
-                <a href=" {{ route('dashboard') }} " class="container d-flex justify-content-left align-items-center text-white-50 mt-2 mb-2 p-3 pl-4" id="btn-dashboard" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                <a href=" {{ route('dashboard') }} " class="container d-flex justify-content-left align-items-center text-white-50 mt-2 mb-2 p-3 pl-4" id="btn-dashboard" data-toggle="tooltip" data-placement="top" title="Dashboard">
                   Dashboard
                 </a>
                 @if (Auth::user()->can_manage_table)
-                  <a href=" {{ route('manage_tables') }} " class="container d-flex justify-content-left align-items-center text-white-50 mt-2 mb-2 p-3 pl-4" id="btn-managetables" data-toggle="tooltip" data-placement="right" title="Manage Tables">
+                  <a href=" {{ route('manage_tables') }} " class="container d-flex justify-content-left align-items-center text-white-50 mt-2 mb-2 p-3 pl-4" id="btn-managetables" data-toggle="tooltip" data-placement="top" title="Manage Tables">
                       Manage Tables
                   </a>
                 @endif
                 @if (Auth::user()->can_manage_product)
-                  <a href=" {{ route('manage_product') }} " class="container d-flex justify-content-left align-items-center text-white-50 mt-2 mb-2 p-3 pl-4" id="btn-manageproduct" data-toggle="tooltip" data-placement="right" title="Manage Product">
+                  <a href=" {{ route('manage_product') }} " class="container d-flex justify-content-left align-items-center text-white-50 mt-2 mb-2 p-3 pl-4" id="btn-manageproduct" data-toggle="tooltip" data-placement="top" title="Manage Product">
                       Manage Product
                   </a>
                 @endif
                 @if (Auth::user()->can_manage_category)
-                  <a href=" {{ route('manage_category') }} " class="container d-flex justify-content-left align-items-center text-white-50 mt-2 mb-2 p-3 pl-4" id="btn-managecategory" data-toggle="tooltip" data-placement="right" title="Manage Category">
+                  <a href=" {{ route('manage_category') }} " class="container d-flex justify-content-left align-items-center text-white-50 mt-2 mb-2 p-3 pl-4" id="btn-managecategory" data-toggle="tooltip" data-placement="top" title="Manage Category">
                       Manage Category
                   </a>
                 @endif
                 @if (Auth::user()->can_manage_user)
-                  <a href=" {{ route('manage_user') }} " class="container d-flex justify-content-left align-items-center text-white-50 mt-2 mb-2 p-3 pl-4" id="btn-manageuser" data-toggle="tooltip" data-placement="right" title="Manage User">
+                  <a href=" {{ route('manage_user') }} " class="container d-flex justify-content-left align-items-center text-white-50 mt-2 mb-2 p-3 pl-4" id="btn-manageuser" data-toggle="tooltip" data-placement="top" title="Manage User">
                       Manage User
                   </a>
                 @endif
-                <a href="{{ route('order_history') }}" class="container d-flex justify-content-left align-items-center text-white-50 mt-2 mb-2 p-3 pl-4" id="btn-orderhistory" data-toggle="tooltip" data-placement="right" title="Order History">
+                <a href="{{ route('order_history') }}" class="container d-flex justify-content-left align-items-center text-white-50 mt-2 mb-2 p-3 pl-4" id="btn-orderhistory" data-toggle="tooltip" data-placement="top" title="Order History">
                     Order History
                 </a>
               </div>
@@ -94,8 +94,11 @@
       
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <!-- <script src="/js/jquery-3.3.1.slim.min.js"></script> -->
-    <!-- <script src="/js/popper.min.js"></script> -->
+    {{-- <script src="/js/jquery-3.3.1.slim.min.js"></script> --}}
+    {{-- Below script just added for the bootstrap tooltip  --}}
+    {{-- after adding it tooltips work properly --}}
+    <script src="/js/popper.min.js"></script>
+
     <script src="{{url('/js/jquery.min.js')}}"></script>
     <script src="{{url('/js/bootstrap.min.js')}}"></script>
     <script src="{{url('/js/script.js')}}"></script>
@@ -103,7 +106,8 @@
   
   <script>
     @yield('script')
-     $(document).ready(function () {
+    $(document).ready(function () {
+       
         // Initial script to load
       $(currentElement).addClass("bg-danger");
       $(currentElement).removeClass("text-white-50");
@@ -123,6 +127,7 @@
           $(classList[i]).removeClass("text-white");
           $(classList[i]).addClass("text-white-50");
       }
+      jQuery('[data-toggle="tooltip"]').tooltip();
     });
   </script>
 </html>

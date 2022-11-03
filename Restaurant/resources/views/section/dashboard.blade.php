@@ -82,7 +82,7 @@
           {
             label:'Monthly Revenue Growth, 2022',
             data:data,
-            backgroundColor:['blue','red','orange','green']
+            backgroundColor:['blue','red','orange','green','yellow','purple','indigo']
           }
         ]
       },
@@ -116,7 +116,7 @@
             {
               label:'Daily Order Growth, 2022',
               data:data,
-              backgroundColor:['blue','red','orange','green']
+              backgroundColor:['blue','red','orange','green','yellow','purple','indigo']
             }
           ]
         },

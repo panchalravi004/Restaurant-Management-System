@@ -20,7 +20,7 @@ if(!function_exists('getMainCategoryById')){
 if(!function_exists('getTotalByQuantity')){
     function getTotalByQuantity($pid,$qty)
     {
-        $price = Product::find($pid)->get()[0]->price;
+        $price = Product::find($pid)->price;
         return $price * $qty;
     }
 }
