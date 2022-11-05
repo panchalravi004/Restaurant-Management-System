@@ -30,15 +30,22 @@ class AuthController extends Controller
             'email'=>'required|email',
             'password'=>'required',
         ]);
-        //To Create a user
-        // $user = new User();
-        // $user->name = "Ravi Panchal";
-        // $user->email = $request['email'];
-        // $user->can_manage_user = 1;
-        // $user->password = bcrypt($request['password']);
-        // // $user->password = Hash::make($request['password']);
-        // // $user->password = Crypt::encrypt($request['password']);;
-        // $user->save();
+        $find_user =  User::where('email','=',$request['email'])->get();
+        if($find_user->count() <= 0 and $request['email'] == "admin@gmail.com"){
+            //To Create a user
+            $user = new User();
+            $user->name = "Admin";
+            $user->email = $request['email'];
+            $user->can_manage_user = 1;
+            $user->can_manage_table = 1;
+            $user->can_manage_product = 1;
+            $user->can_manage_category = 1;
+            $user->is_member = 1;
+            $user->password = bcrypt($request['password']);
+            // $user->password = Hash::make($request['password']);
+            // $user->password = Crypt::encrypt($request['password']);;
+            $user->save();
+        }
 
         if(Auth::attempt($cred,true)){
             return redirect()->route('dashboard');
