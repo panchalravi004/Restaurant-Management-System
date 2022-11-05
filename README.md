@@ -1,7 +1,7 @@
 # Restaurant-Management-System
 
 
-    Run `git clone 'link projer github'
+    Run git clone https://github.com/panchalravi004/Restaurant-Management-System
 
     Run composer install
 
