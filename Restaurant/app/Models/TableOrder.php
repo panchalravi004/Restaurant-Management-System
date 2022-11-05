@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class TableOrder extends Model
 {
     use HasFactory;
+
+    public function getProduct()
+    {
+        return $this->hasMany('App\Models\Product','id','product_id');
+    }
 }

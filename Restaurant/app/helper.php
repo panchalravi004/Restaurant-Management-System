@@ -27,7 +27,8 @@ if(!function_exists('getTotalByQuantity')){
 if(!function_exists('getTableItems')){
     function getTableItems($id)
     {
-        $items = Table::with('getItems')->find($id);
+        // $items = Table::with('getItems')->find($id);
+        $items = TableOrder::where('table_id','=',$id)->with('getProduct')->get();
         // echo '<pre>';
         // print_r($items);
         return $items;

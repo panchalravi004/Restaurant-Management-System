@@ -61,7 +61,7 @@ class ManageTableController extends Controller
 
     public function closeTable(Request $request,$id)
     {
-        $items = getTableItems($id)->getItems;
+        $items = getTableItems($id);
         $total = getTableTotal($items);
         $table = Table::find($id);
 
@@ -73,6 +73,8 @@ class ManageTableController extends Controller
         }
         $createHistory->save();
 
+        //print bill
+        $this->generateInvoice($items);
         //remove items from the table
         foreach ($items as $item) {
             $findOrder = TableOrder::find($item->id);
@@ -80,5 +82,10 @@ class ManageTableController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    public function generateInvoice($items)
+    {
+        
     }
 }

@@ -21,7 +21,7 @@
     <div class="row justify-content-around align-items-center g-2 p-3 border-bottom">
         @foreach ($table as $t)
             @php
-                $items = getTableItems($t->id)->getItems;
+                $items = getTableItems($t->id);
             @endphp
             <div class="card m-3 ml-4 mr-4 border-0 shadow-sm" id="table-card">
                 <div class="card-header @if ($items->count()>0) bg-success @else bg-danger @endif text-white rounded-bottom shadow-sm border-0">
@@ -32,9 +32,9 @@
                 </div>
                 <div class="card-footer d-flex justify-content-around border-0 rounded-top">
                     @if ($items->count()>0)
-                        <button class="btn-sm btn-primary">
+                        <a href="{{ route('close_table', ['id'=>$t->id]) }}" class="btn-sm btn-primary text-white">
                             <i class="fa fa-print" aria-hidden="true"></i>
-                        </button>
+                        </a>
                     @else
                         <a href="{{ route('delete_tables', ['id'=>$t->id]) }}" class="btn-sm btn-danger text-white">
                             <i class="fa fa-trash" aria-hidden="true"></i>
@@ -52,11 +52,11 @@
     </div>
     
     <!-- Single Table Detail Model Detail Like Table Name , is active or not , if active then how many item is their add , add new items also -->
-    {{-- {{getTableItems(1)->getItems}} --}}
+    {{-- {{getTableItems(1)}} --}}
     
     @foreach ($table as $t)
         @php
-            $items = getTableItems($t->id)->getItems;
+            $items = getTableItems($t->id);
         @endphp
     
         @if (Session::has('ITEM-ACTION'))
@@ -105,12 +105,12 @@
                     </div>
                     
                     <div class="modal-body">
-                        {{-- {{getTableItems(1)->getItems}} --}}
+                        {{-- {{getTableItems(1)}} --}}
                         @foreach ($items as $item)
                             
                             <div class="row justify-content-center align-items-center g-2">
                                 <div class="col-1">1</div>
-                                <div class="col ">{{getProductById($item->product_id)->name}}</div>
+                                <div class="col ">{{$item->getProduct[0]->name}}</div>
                                 <div class="col-2 ">{{$item->quantity}}</div>
                                 <div class="col-2 ">{{$item->total}}</div>
                                 <div class="col-2 d-flex justify-content-center align-items-center ">
