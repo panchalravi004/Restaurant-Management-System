@@ -72,9 +72,10 @@ class ManageUserController extends Controller
         $user = User::find($id);
 
         if(isset($request['password'])){
-            $password = Hash::make($request['password']);
-        }else{
-            $password = $user->password;
+            $password = bcrypt($request['password']);
+            $user->update([
+                'password'=>$password
+            ]);
         }
 
         if(isset($request['can_manage_table'])){
@@ -115,7 +116,6 @@ class ManageUserController extends Controller
         $user->update([
             'name'=> $request['name'],
             'email'=> $request['email'],
-            'password'=> $password,
             'can_manage_table'=> $can_manage_table,
             'can_manage_product'=> $can_manage_product,
             'can_manage_user'=> $can_manage_user,

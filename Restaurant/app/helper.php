@@ -74,7 +74,7 @@ if(!function_exists('getStatistics')){
         $todayRevenue = OrderHistory::whereDay('created_at',date('d'))->sum('amount');
         $monthRevenue = OrderHistory::whereMonth('created_at',date('m'))->sum('amount');
         $monthOrder = OrderHistory::whereMonth('created_at',date('m'))->get();
-
+        
         $data = array(
             "todayParcel"=>$todayParcel,
             "todayOrder"=>$todayOrder,

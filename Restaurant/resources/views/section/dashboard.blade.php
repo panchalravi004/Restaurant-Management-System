@@ -23,7 +23,7 @@
         <p class="card-text text-center">Rs. {{$data['todayRevenue']}}</p>
       </div>
     </div>
-    <div class="card shadow-sm m-2 border-0">
+    <div class="card shadow-sm m-2 border-0" data-toggle="tooltip" data-placement="top" title="Rs. {{$data['todayOrder']->sum('amount')}}">
       <div class="card-header bg-info text-white rounded-bottom shadow-sm border-0">
         Today's Order
       </div>
@@ -31,7 +31,7 @@
         <p class="card-text text-center">{{$data['todayOrder']->count()}}</p>
       </div>
     </div>
-    <div class="card shadow-sm m-2 border-0">
+    <div class="card shadow-sm m-2 border-0" data-toggle="tooltip" data-placement="top" title="Rs. {{$data['todayParcel']->sum('amount')}}">
       <div class="card-header bg-warning text-white rounded-bottom shadow-sm border-0">
         Today's Parcel
       </div>
