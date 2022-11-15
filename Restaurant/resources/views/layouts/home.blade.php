@@ -28,17 +28,20 @@
       a:hover{
         text-decoration: none;
       }
+      .side-menu::-webkit-scrollbar{
+        display: none;
+      }
     </style>
   </head>
   <body>
     
-    <div class="container-fluid bg-dark " style="height: 650px;">
-        <div class="row justify-content-center align-items-center g-2 h-100">
+    <div class="container-fluid bg-dark" style="height: 100%;">
+        <div class="row justify-content-center align-items-start g-2 h-100">
           <!-- Menu Model goes here -->
-          <div class="col-md-2 col-sm-12  bg-dark p-0 h-100" style="overflow: hidden;overflow-y: scroll;scrollbar-width: none;">
+          <div class="col-md-2 col-sm-12  bg-dark p-0 h-100 side-menu" style="overflow: hidden;overflow-y: scroll;scrollbar-width: none;">
             <!-- Heading -->
             <div class="container-fluid p-2 d-flex justify-content-center bg-dark border-bottom border-secondary ">
-              <h3 class="text-white-50 mt-2">Restaurant</h3>
+              <h3 class="text-white-50 mt-0">Restaurant</h3>
             </div>
             <!-- menu items -->
             <div class="container-fluid" >
