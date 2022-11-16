@@ -71,7 +71,7 @@ class ManageUserController extends Controller
     {
         $user = User::find($id);
 
-        if(isset($request['password'])){
+        if(isset($request['password']) && $request['password'] != ""){
             $password = bcrypt($request['password']);
             $user->update([
                 'password'=>$password

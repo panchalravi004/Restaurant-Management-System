@@ -48,7 +48,13 @@ class AuthController extends Controller
         }
 
         if(Auth::attempt($cred,true)){
-            return redirect()->route('dashboard');
+            if (Auth::user()->is_member) {
+                return redirect()->route('dashboard');
+            } else {
+                Session::flush();
+                Auth::logout();
+                return redirect()->back()->withError('You are not Member !');
+            }            
         }
         return redirect()->back()->withError('Login details are invalid !');
 
