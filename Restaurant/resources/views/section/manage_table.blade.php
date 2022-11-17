@@ -111,7 +111,11 @@
                             <div class="row justify-content-center align-items-center g-2">
                                 <div class="col-1">1</div>
                                 <div class="col ">{{$item->getProduct[0]->name}}</div>
-                                <div class="col-2 ">{{$item->quantity}}</div>
+                                <div class="col-2 ">
+                                    <a name="" id="" class="badge badge-secondary" href="{{ route('manage_item', ['action'=>'INC','id'=>$item->id]) }}" role="button">+</a>
+                                    {{$item->quantity}}
+                                    <a name="" id="" class="badge badge-secondary" href="{{ route('manage_item', ['action'=>'DEC','id'=>$item->id]) }}" role="button">-</a>
+                                </div>
                                 <div class="col-2 ">{{$item->total}}</div>
                                 <div class="col-2 d-flex justify-content-center align-items-center ">
                                     <a href="{{ route('remove_item_in_tables', ['id'=>$item->id]) }}" class="badge badge-danger text-white">&times;</a>

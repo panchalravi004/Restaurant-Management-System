@@ -34,14 +34,24 @@ class ManageTableController extends Controller
             'product-id'=>'required',
             'quantity'=>'required',
         ]);
-        $createorder = new TableOrder();
-        $createorder->product_id = $request['product-id'];
-        $createorder->quantity = $request['quantity'];
-        $createorder->table_id = $table_id;
-        $createorder->total = getTotalByQuantity($request['product-id'],$request['quantity']);
-        $createorder->save();
 
-        return redirect()->route('manage_tables')->with('ITEM-ACTION',$table_id);
+        //check product order is already add then update quantity
+        $findOrder = TableOrder::where('table_id','=',$table_id)->where('product_id','=',$request['product-id'])->get();
+        // return $findOrder;
+        if($findOrder->count()>0){
+            $createorder = TableOrder::find($findOrder[0]->id);
+            $createorder->quantity = $findOrder[0]->quantity + $request['quantity'];
+            $createorder->total = getTotalByQuantity($request['product-id'],$findOrder[0]->quantity + $request['quantity']);
+            $createorder->save();
+        }else{
+            $createorder = new TableOrder();
+            $createorder->product_id = $request['product-id'];
+            $createorder->quantity = $request['quantity'];
+            $createorder->table_id = $table_id;
+            $createorder->total = getTotalByQuantity($request['product-id'],$request['quantity']);
+            $createorder->save();
+        }
+        return redirect()->back()->with('ITEM-ACTION',$table_id);
     }
 
     public function removeItem($id)
@@ -82,6 +92,28 @@ class ManageTableController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    public function manageItem($action,$id)
+    {
+        $oldItem = TableOrder::find($id);
+        if ($action == 'INC') {
+            $item = TableOrder::find($id);
+            $item->quantity = $oldItem->quantity + 1;
+            $item->total = getTotalByQuantity($oldItem->product_id,$oldItem->quantity + 1);
+            $item->save();
+        }
+        elseif ($action == 'DEC') {
+            $item = TableOrder::find($id);
+            if($item->quantity == 1){
+                $item->delete();
+            }else{
+                $item->quantity = $oldItem->quantity - 1;
+                $item->total = getTotalByQuantity($oldItem->product_id,$oldItem->quantity - 1);
+                $item->save();
+            }
+        }
+        return redirect()->back()->with('ITEM-ACTION',$oldItem->table_id);
     }
 
     public function generateInvoice($items)

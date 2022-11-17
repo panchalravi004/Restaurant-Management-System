@@ -30,7 +30,7 @@ class ManageUserController extends Controller
     {
         $request->validate([
             'name'=>'required',
-            'email'=>'required|email',
+            'email'=>'required|email|unique:users',
             'password'=>'required'
         ]);
 

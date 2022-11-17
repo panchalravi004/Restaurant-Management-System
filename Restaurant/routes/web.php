@@ -33,6 +33,7 @@ Route::group(['prefix'=>'tables'],function(){
     Route::get('/add-item/{table_id}',[ManageTableController::class,'addItem'])->name('add_item_in_tables');
     Route::get('/remove-item/{id}',[ManageTableController::class,'removeItem'])->name('remove_item_in_tables');
     Route::get('/close-table/{id}',[ManageTableController::class,'closeTable'])->name('close_table');
+    Route::get('/item/{action}/{id}',[ManageTableController::class,'manageItem'])->name('manage_item');
 });
 
 Route::group(['prefix'=>'product'],function(){
