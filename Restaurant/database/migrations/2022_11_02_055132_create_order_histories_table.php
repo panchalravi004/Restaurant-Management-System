@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('amount');
             $table->string('table_name');
+            $table->enum('section', ['AC', 'NOAC']);
+            $table->string('username');
             // $table->foreign('table_id')->references('id')->on('tables');
             $table->boolean('is_parcel')->nullable()->default(false);
             $table->timestamps();

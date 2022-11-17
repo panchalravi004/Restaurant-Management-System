@@ -14,6 +14,8 @@
                 <th scope="col">id</th>
                 <th scope="col">Amount</th>
                 <th scope="col">Table Name</th>
+                <th scope="col">Section</th>
+                <th scope="col">User Name</th>
                 <th scope="col">Parcel</th>
                 <th scope="col">Date</th>
             </tr>
@@ -24,6 +26,8 @@
                     <td>{{$item->id}}</td>
                     <td>Rs. {{$item->amount}}</td>
                     <td>{{$item->table_name}}</td>
+                    <td>{{$item->section}}</td>
+                    <td>{{$item->username}}</td>
                     <td>
                         @if ($item->is_parcel)
                             <span class="badge badge-success rounded-pill">YES</span>
@@ -36,6 +40,9 @@
             @endforeach
         </tbody>
     </table>
+</div>
+<div class="row justify-content-center align-items-center g-2">
+    {{$orderHistory->links("pagination::bootstrap-4")}}
 </div>
 
 @endsection

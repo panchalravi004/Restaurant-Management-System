@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\Table;
 use App\Models\TableOrder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ManageTableController extends Controller
 {
@@ -20,10 +21,12 @@ class ManageTableController extends Controller
     public function create(Request $request)
     {
         $request->validate([
-            'name'=>'required'
+            'name'=>'required',
+            'section'=>'required'
         ]);
         $table = new Table();
         $table->name = $request['name'];
+        $table->section = $request['section'];
         $table->save();
         return redirect()->route('manage_tables');
     }
@@ -77,7 +80,10 @@ class ManageTableController extends Controller
 
         $createHistory = new OrderHistory();
         $createHistory->amount=$total;
-        $createHistory->table_name="TABLE_".$table->name;
+        $createHistory->table_name="TABLE-".$table->name;
+        $createHistory->username=Auth::user()->name;
+        $createHistory->section=$table->section;
+
         if (isset($request['is_parcel'])) {
             $createHistory->is_parcel=1;
         }

@@ -9,7 +9,7 @@ class OrderHistoryController extends Controller
 {
     public function index()
     {
-        $orderHistory = OrderHistory::all();
+        $orderHistory = OrderHistory::paginate(10);
         $data = compact('orderHistory');
         return view('section/order_history')->with($data);
     }

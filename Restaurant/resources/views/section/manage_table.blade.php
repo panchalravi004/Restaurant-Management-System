@@ -18,8 +18,52 @@
     </div>
 </div>
 <div id="filter-content">
+    <span class="badge badge-warning text-white rounded-pill">
+        Non AC
+    </span>
     <div class="row justify-content-around align-items-center g-2 p-3 border-bottom">
         @foreach ($table as $t)
+            @if ($t->section == "AC")
+                @continue
+            @endif
+            @php
+                $items = getTableItems($t->id);
+            @endphp
+            <div class="card m-3 ml-4 mr-4 border-0 shadow-sm" id="table-card">
+                <div class="card-header @if ($items->count()>0) bg-success @else bg-danger @endif text-white rounded-bottom shadow-sm border-0">
+                    Table {{$t->name}}
+                </div>
+                <div class="card-body" data-toggle="modal" data-target="#detail-table-modal-{{$t->id}}" style="cursor: pointer;">
+                    <p class="card-text flex-wrap">Rs. {{getTableTotal($items)}}</p>
+                </div>
+                <div class="card-footer d-flex justify-content-around border-0 rounded-top">
+                    @if ($items->count()>0)
+                        <a href="{{ route('close_table', ['id'=>$t->id]) }}" class="btn-sm btn-primary text-white">
+                            <i class="fa fa-print" aria-hidden="true"></i>
+                        </a>
+                    @else
+                        <a href="{{ route('delete_tables', ['id'=>$t->id]) }}" class="btn-sm btn-danger text-white">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </a>
+                    @endif
+                    
+                </div>
+                {{-- <div class="card-footer d-flex justify-content-around">
+                    <span class="badge badge-danger">
+                        Inactive
+                    </span>
+                </div> --}}
+            </div>
+        @endforeach
+    </div>
+    <span class="badge badge-warning text-white rounded-pill">
+        AC
+    </span>
+    <div class="row justify-content-around align-items-center g-2 p-3 border-bottom">
+        @foreach ($table as $t)
+            @if ($t->section == "NOAC")
+                @continue
+            @endif        
             @php
                 $items = getTableItems($t->id);
             @endphp
@@ -158,6 +202,13 @@
                 <div class="form-group">
                   <label for="table-name">Table Name</label>
                   <input type="text" name="name" id="table-name" class="form-control" placeholder="Enter table name" aria-describedby="helpId">
+                </div>
+                <div class="form-group">
+                  <label for="section">Section</label>
+                  <select class="form-control" name="section" id="section">
+                    <option value="AC">AC</option>
+                    <option value="NOAC">Non AC</option>
+                  </select>
                 </div>
             </div>
             <div class="modal-footer">
