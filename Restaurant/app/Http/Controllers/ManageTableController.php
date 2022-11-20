@@ -8,13 +8,13 @@ use App\Models\Table;
 use App\Models\TableOrder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use PDF;
 class ManageTableController extends Controller
 {
     public function index()
     {
         $table = Table::all();
-        $product = Product::all();
+        $product = Product::where('status','=',1)->get();
         $data = compact('table','product');
         return view('section/manage_Table')->with($data);
     }
@@ -89,8 +89,6 @@ class ManageTableController extends Controller
         }
         $createHistory->save();
 
-        //print bill
-        $this->generateInvoice($items);
         //remove items from the table
         foreach ($items as $item) {
             $findOrder = TableOrder::find($item->id);
@@ -120,10 +118,5 @@ class ManageTableController extends Controller
             }
         }
         return redirect()->back()->with('ITEM-ACTION',$oldItem->table_id);
-    }
-
-    public function generateInvoice($items)
-    {
-        
     }
 }

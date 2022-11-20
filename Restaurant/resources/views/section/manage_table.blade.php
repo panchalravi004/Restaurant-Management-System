@@ -220,35 +220,6 @@
 </div>
 
 
-{{-- <script>
-    $(document).ready(function () {
-        $("#cb-in-active").on("change", function () {
-            var inactive = false;
-            if($(this)[0].checked){
-                inactive = true;
-            }else{
-                inactive = false;
-            }
-
-            var object = {
-                'inactive':inactive
-            };
-
-            console.log(object);
-            $.ajax({
-                type: "get",
-                url: "http://127.0.0.1:8000/tables/filter-table",
-                data: object,
-                dataType: "json",
-                success: function (response) {
-                    console.log(response);
-                }
-            });
-
-        });
-    });
-</script> --}}
-
 @endsection
 @section('script')
     var currentElement = "#btn-managetables"
