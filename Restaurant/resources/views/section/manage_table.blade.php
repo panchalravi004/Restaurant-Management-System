@@ -176,7 +176,7 @@
                                 Is Parcel
                                 </label>
                             </div>
-                            <button type="submit" class="btn btn-success text-white">Close Table</button>
+                            <button type="submit" class="btn btn-success text-white" onclick="show_my_receipt({{$t->id}})">Close Table</button>
                             {{-- <button type="button" class="btn btn-primary">Print</button> --}}
                         @endif
                     </form>
@@ -219,6 +219,24 @@
     </div>
 </div>
 
+<script>
+     function show_my_receipt(id) {
+         
+         // open the page as popup //
+         var page = 'http://127.0.0.1:8000/tables/bill-print/'+id;
+         var myWindow = window.open(page, "_blank", "scrollbars=yes,width=600,height=600,top=30");
+         
+         // focus on the popup //
+         myWindow.focus();
+         
+         // if you want to close it after some time (like for example open the popup print the receipt and close it) //
+         
+        //  setTimeout(function() {
+        //    myWindow.close();
+        //  }, 1000);
+        
+       }
+</script>
 
 @endsection
 @section('script')

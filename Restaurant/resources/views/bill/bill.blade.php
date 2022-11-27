@@ -1,156 +1,82 @@
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bill</title>
-  <style>
-    *{
-      font-family: sans-serif;
-    }
-    #invoice-POS{
-      box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5);
-      padding:2mm;
-      margin: 0 auto;
-      width: 60mm;
-      background: #FFF;}
-      
-    h1{
-      font-size: 1.5em;
-      color: #222;
-    }
-    h2{font-size: .8em;}
-    h3{
-      font-size: 1.2em;
-      font-weight: 300;
-      line-height: 2em;
-    }
-    p{
-      font-size: .6em;
-      color: #666;
-      line-height: 1.2em;
-    }
-    
-    #top, #mid,#bot{
-      border-bottom: 1px solid #EEE;
-    }
+  <head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    #top{min-height: 100px;}
-    #mid{min-height: 80px;} 
-    #bot{ min-height: 50px;}
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body>
 
-    #top .logo{
-      height: 60px;
-      width: 60px;
-      background-size: 60px 60px;
-    }
-    .clientlogo{
-      float: left;
-      height: 60px;
-      width: 60px;
-      background-size: 60px 60px;
-      border-radius: 50px;
-    }
-    .info{
-      display: block;
-      margin-left: 0;
-    }
-    .title{
-      float: right;
-    }
-    .title p{text-align: right;} 
-    table{
-      width: 100%;
-      border-collapse: collapse;
-    }
-    .tabletitle{
-      font-size: .6em;
-      background: #EEE;
-    }
-    .service{border-bottom: 1px solid #EEE;}
-    .item{width: 24mm;}
-    .itemtext{font-size: .5em;}
-
-    #legalcopy{
-      margin-top: 5mm;
-    }
-    
-    .legal{
-      text-align: center;
-    }
-  </style>
-</head>
-<body>
-  
-  <div id="invoice-POS">
-    
-    <center id="top">
-      <div class="logo"></div>
-      <div class="info"> 
-        <h2>Restaurant</h2>
-      </div>
-    </center>
-    
-    <div id="mid">
-      <div class="info">
-        <h2>Contact Info</h2>
-        <p> 
-            Address : street city, state 0000</br>
-            Email   : ravi@gmail.com</br>
-            Phone   : +91987654321</br>
-        </p>
+    <div class="col-6 container-fluid float-left">
+      <div class="card">
+        <div class="card-header bg-white">
+          <div class="row m-1 justify-content-between align-items-center g-2">
+            <div class="col-6 text-secondary d-flex justify-content-start">+919876543210</div>
+            <div class="col-6 text-secondary d-flex justify-content-end">ravi@gmail.com</div>
+          </div>
+          <h5 class=" d-flex justify-content-center">Restaurant Invoice</h5>
+          <small class=" d-flex justify-content-center">At Po Hadiyol,Himmatnagar, 383001</small>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">No</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Qty</th>
+                  <th scope="col">Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                @php
+                    $i = 1;
+                @endphp
+                @foreach ($items as $item)
+                  <tr>
+                    <td>{{$i}}</td>
+                    <td>{{$item->getProduct[0]->name}}</td>
+                    <td>{{$item->getProduct[0]->price}}</td>
+                    <td>{{$item->quantity}}</td>
+                    <td>Rs.{{$item->total}}</td>
+                  </tr>
+                  @php
+                      $i++;
+                  @endphp
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+          
+        </div>
+        <div class="card-footer bg-white">
+          <div class="row justify-content-center align-items-center g-2">
+            <h5 class="col-6">Total Amount</h5>
+            <h5 class="col-6">Rs. {{$total}}</h5>
+          </div>
+        </div>
+        <div class="card-footer text-muted bg-white d-flex justify-content-center">
+          Thank You !
+        </div>
       </div>
     </div>
-    
-    
-    <div id="bot">
 
-					<div id="table">
-						<table>
-							<tr class="tabletitle">
-								<td class="item"><h2>Item</h2></td>
-								<td class="Price"><h2>Price</h2></td>
-								<td class="Hours"><h2>Qty</h2></td>
-								<td class="Rate"><h2>Total</h2></td>
-							</tr>
-
-              @foreach ($items as $item)
-                <tr class="service">
-                  <td class="tableitem"><p class="itemtext">{{$item->getProduct[0]->name}}</p></td>
-                  <td class="tableitem"><p class="itemtext">{{$item->getProduct[0]->price}}</p></td>
-                  <td class="tableitem"><p class="itemtext">{{$item->quantity}}</p></td>
-                  <td class="tableitem"><p class="itemtext">{{$item->total}}</p></td>
-                </tr>
-              @endforeach
-
-
-						</table>
-            <table>
-              {{-- <tr class="tabletitle">
-								<td class="Rate"><h2>Sub Total</h2></td>
-								<td class="payment"><h2>Rs. 419.25</h2></td>
-							</tr>
-              <tr class="tabletitle">
-								<td class="Rate"><h2>Dis</h2></td>
-								<td class="payment"><h2>Rs. 419.25</h2></td>
-							</tr> --}}
-							<tr class="tabletitle">
-								<td class="Rate"><h2>Payable</h2></td>
-								<td class="payment"><h2>Rs. {{$total}}</h2></td>
-							</tr>
-            </table>
-					</div>
-
-					<div id="legalcopy">
-						<p class="legal">
-              <strong>
-                Thank you for comming !
-              </strong>
-            </p>
-					</div>
-
-				</div>
-  </div>
-
-</body>
+      
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
 </html>
+<script>
+  $(document).ready(function () {
+    window.print();
+    window.close();
+  });
+</script>

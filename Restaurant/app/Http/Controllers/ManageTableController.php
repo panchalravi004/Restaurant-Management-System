@@ -119,4 +119,13 @@ class ManageTableController extends Controller
         }
         return redirect()->back()->with('ITEM-ACTION',$oldItem->table_id);
     }
+
+    public function billPrint($id)
+    {
+        $items = getTableItems($id);
+        $total = getTableTotal($items);
+        $data = compact('items','total');
+        // return $items;
+        return view("bill/bill")->with($data);
+    }
 }
