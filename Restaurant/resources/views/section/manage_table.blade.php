@@ -38,7 +38,7 @@
                 </div>
                 <div class="card-footer d-flex justify-content-around border-0 rounded-top">
                     @if ($items->count()>0)
-                        <a href="{{ route('close_table', ['id'=>$t->id]) }}" class="btn-sm btn-primary text-white">
+                        <a href="{{ route('close_table', ['id'=>$t->id]) }}" class="btn-sm btn-primary text-white" onclick="show_my_receipt({{$t->id}})">
                             <i class="fa fa-print" aria-hidden="true"></i>
                         </a>
                     @else
@@ -76,7 +76,7 @@
                 </div>
                 <div class="card-footer d-flex justify-content-around border-0 rounded-top">
                     @if ($items->count()>0)
-                        <a href="{{ route('close_table', ['id'=>$t->id]) }}" class="btn-sm btn-primary text-white">
+                        <a href="{{ route('close_table', ['id'=>$t->id]) }}" class="btn-sm btn-primary text-white" onclick="show_my_receipt({{$t->id}})">
                             <i class="fa fa-print" aria-hidden="true"></i>
                         </a>
                     @else
