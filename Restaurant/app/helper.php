@@ -71,9 +71,9 @@ if(!function_exists('getStatistics')){
         // $date = str_split(Carbon::now(),10)[0];
         // $yearMonth = str_split($date,7)[0];
         // $todayParcel = OrderHistory::where('created_at','LIKE',"%$date%")->where('is_parcel','=',1)->get();
-        $todayParcel = OrderHistory::whereDay('created_at',date('d'))->where('is_parcel','=',1)->get();
-        $todayOrder = OrderHistory::whereDay('created_at',date('d'))->where('is_parcel','=',0)->get();
-        $todayRevenue = OrderHistory::whereDay('created_at',date('d'))->sum('amount');
+        $todayParcel = OrderHistory::whereMonth('created_at',date('m'))->whereDay('created_at',date('d'))->where('is_parcel','=',1)->get();
+        $todayOrder = OrderHistory::whereMonth('created_at',date('m'))->whereDay('created_at',date('d'))->where('is_parcel','=',0)->get();
+        $todayRevenue = OrderHistory::whereMonth('created_at',date('m'))->whereDay('created_at',date('d'))->sum('amount');
         $monthRevenue = OrderHistory::whereMonth('created_at',date('m'))->sum('amount');
         $monthOrder = OrderHistory::whereMonth('created_at',date('m'))->get();
         
