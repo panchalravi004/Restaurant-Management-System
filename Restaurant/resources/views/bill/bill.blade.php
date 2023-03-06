@@ -11,7 +11,7 @@
   </head>
   <body>
 
-    <div class="col-6 container-fluid float-left">
+    <div class="col-12 container-fluid float-left">
       <div class="card">
         <div class="card-header bg-white">
           <div class="row m-1 justify-content-between align-items-center g-2">
@@ -77,6 +77,6 @@
 <script>
   $(document).ready(function () {
     window.print();
-    window.close();
+    // window.close();
   });
 </script>

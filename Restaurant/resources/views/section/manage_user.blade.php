@@ -224,7 +224,7 @@
             console.log(object);
             $.ajax({
                 type: "get",
-                url: "http://127.0.0.1:8000/user",
+                url: "/user",
                 data: object,
                 dataType: "json",
                 success: function (response) {

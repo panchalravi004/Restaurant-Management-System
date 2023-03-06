@@ -79,10 +79,10 @@
           <div class="col-md-10 col-sm-12 bg-white h-100 p-0" style="overflow: hidden;overflow-y: scroll;overscroll-behavior-y: smooth;scrollbar-width: none; ">
             <div class="container-fluid bg-dark p-3">
               <div class="row justify-content-center align-items-center g-2">
-                <div class="col-10">
+                <div class="col-8 col-xl-10">
                   <h6 class="display-6 text-white-50" id="content-section-title">@stack('title')</h6>
                 </div>
-                <div class="col-2">
+                <div class="col-4 col-xl-2">
                   <a href="{{ route('logout') }}" type="button" class="btn btn-danger btn-sm">Logout</a>
                 </div>
               </div>

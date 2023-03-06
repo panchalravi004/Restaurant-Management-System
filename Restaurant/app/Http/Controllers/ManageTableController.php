@@ -81,13 +81,17 @@ class ManageTableController extends Controller
         $createHistory = new OrderHistory();
         $createHistory->amount=$total;
         $createHistory->table_name="TABLE-".$table->name;
-        $createHistory->username=Auth::user()->name;
+        $createHistory->username=Auth::user() != null ? Auth::user()->name : 'Customer' ;
         $createHistory->section=$table->section;
 
         if (isset($request['is_parcel'])) {
             $createHistory->is_parcel=1;
         }
-        $createHistory->save();
+
+        if($items->count() > 0){
+            $createHistory->save();
+        }
+        
 
         //remove items from the table
         foreach ($items as $item) {

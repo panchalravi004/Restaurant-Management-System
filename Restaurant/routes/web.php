@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ManageCategoryController;
 use App\Http\Controllers\ManageProductController;
@@ -62,5 +63,11 @@ Route::group(['prefix'=>'user'],function(){
 
 Route::prefix('order-history')->group(function () {
     Route::get('/',[OrderHistoryController::class,'index'])->name('order_history');
+});
+
+Route::prefix('customer')->group(function () {
+    Route::get('/table/{id}',[CustomerController::class,'index'])->name('customer');
+    Route::get('/table/placeorder/{id}',[CustomerController::class,'placeOrder'])->name('place_order');
+    Route::get('/generate-code',[CustomerController::class,'generateCode'])->name('generate_code');
 });
 

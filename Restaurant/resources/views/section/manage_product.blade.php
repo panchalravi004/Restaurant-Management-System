@@ -225,7 +225,7 @@
             console.log(object);
             $.ajax({
                 type: "get",
-                url: "http://127.0.0.1:8000/product",
+                url: "/product",
                 data: object,
                 dataType: "json",
                 success: function (response) {

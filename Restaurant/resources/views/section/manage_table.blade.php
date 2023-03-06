@@ -13,7 +13,10 @@
           </label>
         </div> --}}
     </div>
-    <div class="col-2">
+    <div class="col-4 col-xl-2">
+        <a class="btn btn-success btn-sm text-white" href=" {{ route('generate_code') }} " target="__BLANK">Generate QR</a>
+    </div>
+    <div class="col-4 col-xl-2">
         <button type="button" class="btn btn-info btn-sm" id="btn-add-table" data-toggle="modal" data-target="#add-table-modal">ADD TABLE</button>
     </div>
 </div>
@@ -153,7 +156,7 @@
                         @foreach ($items as $item)
                             
                             <div class="row justify-content-center align-items-center g-2">
-                                <div class="col-1">1</div>
+                                <div class="col-1">{{ $loop->index +1}}</div>
                                 <div class="col ">{{$item->getProduct[0]->name}}</div>
                                 <div class="col-2 ">
                                     <a name="" id="" class="badge badge-secondary" href="{{ route('manage_item', ['action'=>'INC','id'=>$item->id]) }}" role="button">+</a>
@@ -223,7 +226,7 @@
      function show_my_receipt(id) {
          
          // open the page as popup //
-         var page = 'http://127.0.0.1:8000/tables/bill-print/'+id;
+         var page = '/tables/bill-print/'+id;
          var myWindow = window.open(page, "_blank", "scrollbars=yes,width=600,height=600,top=30");
          
          // focus on the popup //

@@ -15,7 +15,7 @@
       <div class="container d-flex justify-content-center align-item-center ">
         <h2 class="display-6 text-white">LOGIN</h2>
       </div>
-      <form method="post" action="{{ route('do_login') }}" class="container bg-white col-4 p-4 rounded shadow-sm">
+      <form method="post" action="{{ route('do_login') }}" class="container bg-white col-12 col-xl-4 p-4 rounded shadow-sm">
         @csrf
         @if (Session::has('error'))
           <div class="alert alert-warning alert-dismissible fade show" role="alert">
