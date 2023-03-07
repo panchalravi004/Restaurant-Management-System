@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use App\Models\Product;
+use App\Models\ShefCorner;
 use App\Models\Table;
 use App\Models\TableOrder;
 use Exception;
@@ -57,6 +58,11 @@ class CustomerController extends Controller
                 $createorder->total = getTotalByQuantity($request[$key]['id'],$request[$key]['qty']);
                 $createorder->save();
             }
+            $shefCorner = new ShefCorner();
+            $shefCorner->product_id = $request[$key]['id'];
+            $shefCorner->quantity = $request[$key]['qty'];
+            $shefCorner->table_id = $table_id;
+            $shefCorner->save();
         }
         //return array_keys($request->toArray());
         // return $request[1];

@@ -124,6 +124,12 @@
                         </div>
                         <div class="col-5 form-check m-2">
                             <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" @if ($u->shef_access) checked @else @endif name="shef_access" id="" value="1">
+                            Shef Access
+                            </label>
+                        </div>
+                        <div class="col-5 form-check m-2">
+                            <label class="form-check-label">
                             <input type="checkbox" class="form-check-input" @if ($u->is_member) checked @else @endif name="is_member" id="" value="1">
                             Is Member
                             </label>
@@ -188,6 +194,12 @@
                         <label class="form-check-label">
                           <input type="checkbox" class="form-check-input" name="can_manage_user" id="" value="1">
                           Can Manage User
+                        </label>
+                    </div>
+                    <div class="col-5 form-check m-2">
+                        <label class="form-check-label">
+                          <input type="checkbox" class="form-check-input" name="shef_access" id="" value="1">
+                          Shef Access
                         </label>
                     </div>
                     <div class="col-5 form-check m-2">

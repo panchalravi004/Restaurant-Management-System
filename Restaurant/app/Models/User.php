@@ -25,6 +25,7 @@ class User extends Authenticatable
         'can_manage_product',
         'can_manage_category',
         'can_manage_user',
+        'shef_access',
         'is_member'
     ];
 

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->boolean('can_manage_product')->nullable()->default(false);
             $table->boolean('can_manage_category')->nullable()->default(false);
             $table->boolean('can_manage_user')->nullable()->default(false);
+            $table->boolean('shef_access')->nullable()->default(false);
             $table->boolean('is_member')->nullable()->default(false);
         });
     }

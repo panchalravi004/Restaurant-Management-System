@@ -12,6 +12,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js" integrity="sha512-ElRFoEQdI5Ht6kZvyzXhYG9NqjtkmlkfYk0wr6wHxU9JEHakS7UJZNeml5ALk+8IKlU6jDgMabC3vkumRokgJA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     
     <style>
       *{
@@ -69,6 +70,11 @@
                       Manage User
                   </a>
                 @endif
+                @if (Auth::user()->shef_access)
+                  <a href=" {{ route('shef_corner') }} " class="container d-flex justify-content-left align-items-center text-white-50 mt-2 mb-2 p-3 pl-4" id="btn-shefcorner" data-toggle="tooltip" data-placement="top" title="Shef Corner">
+                      Shef Corner
+                  </a>
+                @endif
                 <a href="{{ route('order_history') }}" class="container d-flex justify-content-left align-items-center text-white-50 mt-2 mb-2 p-3 pl-4" id="btn-orderhistory" data-toggle="tooltip" data-placement="top" title="Order History">
                     Order History
                 </a>
@@ -121,6 +127,7 @@
           "#btn-manageproduct",
           "#btn-managecategory",
           "#btn-manageuser",
+          "#btn-shefcorner",
           "#btn-orderhistory"];
       for (let i = 0; i < classList.length; i++) {
           if(classList[i]==currentElement){

@@ -41,6 +41,7 @@ class AuthController extends Controller
             $user->can_manage_product = 1;
             $user->can_manage_category = 1;
             $user->is_member = 1;
+            $user->shef_access = 1;
             $user->password = bcrypt($request['password']);
             // $user->password = Hash::make($request['password']);
             // $user->password = Crypt::encrypt($request['password']);;

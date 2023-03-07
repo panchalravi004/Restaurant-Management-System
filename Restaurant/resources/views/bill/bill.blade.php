@@ -77,6 +77,6 @@
 <script>
   $(document).ready(function () {
     window.print();
-    // window.close();
+    window.close();
   });
 </script>

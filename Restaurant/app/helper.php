@@ -87,3 +87,9 @@ if(!function_exists('getStatistics')){
         return $data;
     }
 }
+if(!function_exists('getTimeFromDate')){
+    function getTimeFromDate($date)
+    {
+        return $date;
+    }
+}

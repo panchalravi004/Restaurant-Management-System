@@ -54,6 +54,9 @@ class ManageUserController extends Controller
         if(isset($request['is_member'])){
             $user->is_member = 1;
         }
+        if(isset($request['shef_access'])){
+            $user->shef_access = 1;
+        }
         $user->save();
 
         return redirect()->route('manage_user');
@@ -113,6 +116,13 @@ class ManageUserController extends Controller
             $is_member = 0;
         }
 
+        if(isset($request['shef_access'])){
+            $shef_access = 1;
+        }
+        else{
+            $shef_access = 0;
+        }
+
         $user->update([
             'name'=> $request['name'],
             'email'=> $request['email'],
@@ -120,6 +130,7 @@ class ManageUserController extends Controller
             'can_manage_product'=> $can_manage_product,
             'can_manage_user'=> $can_manage_user,
             'can_manage_category'=> $can_manage_category,
+            'shef_access'=> $shef_access,
             'is_member'=> $is_member
         ]);
 

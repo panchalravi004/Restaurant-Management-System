@@ -8,6 +8,7 @@ use App\Http\Controllers\ManageProductController;
 use App\Http\Controllers\ManageTableController;
 use App\Http\Controllers\ManageUserController;
 use App\Http\Controllers\OrderHistoryController;
+use App\Http\Controllers\ShefCornerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -63,6 +64,11 @@ Route::group(['prefix'=>'user'],function(){
 
 Route::prefix('order-history')->group(function () {
     Route::get('/',[OrderHistoryController::class,'index'])->name('order_history');
+});
+
+Route::prefix('shef-corner')->group(function () {
+    Route::get('/',[ShefCornerController::class,'index'])->name('shef_corner');
+    Route::get('/update-status/{status}/{id}',[ShefCornerController::class,'updateOrderStatus'])->name('update_order_status');
 });
 
 Route::prefix('customer')->group(function () {

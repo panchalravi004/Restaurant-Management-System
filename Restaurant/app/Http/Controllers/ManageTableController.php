@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\OrderHistory;
 use App\Models\Product;
+use App\Models\ShefCorner;
 use App\Models\Table;
 use App\Models\TableOrder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use PDF;
 class ManageTableController extends Controller
 {
@@ -54,14 +56,40 @@ class ManageTableController extends Controller
             $createorder->total = getTotalByQuantity($request['product-id'],$request['quantity']);
             $createorder->save();
         }
+        $shefCorner = new ShefCorner();
+        $shefCorner->product_id = $request['product-id'];
+        $shefCorner->quantity = $request['quantity'];
+        $shefCorner->table_id = $table_id;
+        $shefCorner->save();
         return redirect()->back()->with('ITEM-ACTION',$table_id);
     }
 
     public function removeItem($id)
     {
         $item = TableOrder::find($id);
+        //also update shef corner item quantity
+        $shefItem = DB::table('shef_corners')
+        ->where('product_id','=',$item->product_id)
+        ->where('table_id','=',$item->table_id)
+        ->where('status','=','Pending')
+        ->select('shef_corners.*')
+        ->get();
+
+        $pendingOrderQty = 0;
+        foreach ($shefItem as $value) {
+            $getItem = ShefCorner::find($value->id);
+            $pendingOrderQty += $getItem->quantity;
+            $getItem->delete();
+        }
         $table_id = $item->table_id;
-        $item->delete();
+
+        if($pendingOrderQty == $item->quantity){
+            $item->delete();
+        }else{
+            $item->quantity = $item->quantity - $pendingOrderQty;
+            $item->save();
+        }
+
         return back()->with('ITEM-ACTION',$table_id);;
     }
 
@@ -98,6 +126,12 @@ class ManageTableController extends Controller
             $findOrder = TableOrder::find($item->id);
             $findOrder->delete();
         }
+        //remove items from the shef corner table
+        $shefCornerItems = ShefCorner::where('table_id','=',$id)->get();
+        foreach ($shefCornerItems as $item) {
+            $getItem = ShefCorner::find($item->id);
+            $getItem->delete();
+        }
 
         return redirect()->back();
     }
@@ -105,20 +139,62 @@ class ManageTableController extends Controller
     public function manageItem($action,$id)
     {
         $oldItem = TableOrder::find($id);
+        //also update shef corner item quantity
+        $shefItem = DB::table('shef_corners')
+        ->where('product_id','=',$oldItem->product_id)
+        ->where('table_id','=',$oldItem->table_id)
+        ->where('status','=','Pending')
+        ->select('shef_corners.*')
+        ->get();
+
         if ($action == 'INC') {
             $item = TableOrder::find($id);
             $item->quantity = $oldItem->quantity + 1;
             $item->total = getTotalByQuantity($oldItem->product_id,$oldItem->quantity + 1);
             $item->save();
+
+            // return $shefItem;
+            if($shefItem->count() > 0){
+                $getShefItem = ShefCorner::find($shefItem[0]->id);
+                $getShefItem->quantity = $getShefItem->quantity + 1;
+                $getShefItem->save();
+            }else{
+                //if pending order doesnt exists for this product and table 
+                //then add new order in shef corner
+                $shefCorner = new ShefCorner();
+                $shefCorner->product_id = $oldItem->product_id;
+                $shefCorner->quantity = 1;
+                $shefCorner->table_id = $oldItem->table_id;
+                $shefCorner->save();
+            }
+
         }
         elseif ($action == 'DEC') {
             $item = TableOrder::find($id);
+
             if($item->quantity == 1){
-                $item->delete();
+                //also update shef corner item quantity
+                if($shefItem->count() > 0){
+                    $getShefItem = ShefCorner::find($shefItem[0]->id);
+                    $getShefItem->delete();
+                    $item->delete();
+                }
             }else{
-                $item->quantity = $oldItem->quantity - 1;
-                $item->total = getTotalByQuantity($oldItem->product_id,$oldItem->quantity - 1);
-                $item->save();
+                if($shefItem->count() > 0){
+                    //only remove the pending items from table
+                    $getShefItem = ShefCorner::find($shefItem[0]->id);
+
+                    if($getShefItem->quantity == 1){
+                        $getShefItem->delete();
+                    }else{
+                        $getShefItem->quantity = $getShefItem->quantity - 1;
+                        $getShefItem->save();
+                    }
+
+                    $item->quantity = $oldItem->quantity - 1;
+                    $item->total = getTotalByQuantity($oldItem->product_id,$oldItem->quantity - 1);
+                    $item->save();
+                }
             }
         }
         return redirect()->back()->with('ITEM-ACTION',$oldItem->table_id);
